@@ -1,0 +1,14 @@
+.header{
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    padding-left: 8%;
+    width: 100%;
+    
+}
+
+.theme{
+    position: absolute;
+    right: 8%;
+}
+
