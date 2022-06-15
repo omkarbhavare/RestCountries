@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import './Header.css'
+import { Search } from './Search/Search';
 
 export const Header = () => {
     const [dark,setDark]=useState(false);
@@ -9,8 +10,10 @@ export const Header = () => {
         setDark(!dark);
     }
   return (
-    <div className='container header' style={{backgroundColor: !dark ? '#2B3945' : '',color:!dark ? 'white':''}}>
-        <h1>Rest Countries</h1>
+    <>
+    <div className='container header' style={{backgroundColor: !dark ? '#2B3945' : '#fafafa',color:!dark ? 'white':''}}>
+        <h1 onClick={()=>window.location.reload()} style={{cursor:'pointer'}}><i class="fa-solid fa-house"></i>&ensp;Rest Countries</h1>
+        
         <span className='theme' onClick={changeBackground}>
             {!dark ?(
                 <>
@@ -23,5 +26,7 @@ export const Header = () => {
             )}
         </span>
     </div>
+    <Search dark={dark}/>
+    </>
   )
 }

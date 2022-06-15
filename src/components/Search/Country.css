@@ -1,0 +1,25 @@
+#countryCard{
+    width: 90%;
+    border: 1px solid black;
+    margin-left: 5%;
+    position: relative;
+    
+}
+
+.countryCard{
+    display: inline;
+    
+    
+}
+
+.countryCard img{
+    width: 54%;
+    height: 30%;
+    margin: 0 23%;
+}
+h1{
+    text-align: center;
+}
+.rightSide{
+    padding:15px 10%;
+}

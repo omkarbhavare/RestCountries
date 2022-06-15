@@ -3,21 +3,30 @@ button{
     height: 1.5rem;
 }
 
+
 .filterSection{
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 5rem;
-    border: 1px solid black;
-    padding:0 5rem;
+    padding:0 6rem;
+    /* margin: 15px 0; */
 }
 .searchBar .searchInput input{
-    height: 1.5rem;
-    width: 12rem;
+    height: 3rem;
+    width: 14rem;
+    border-radius: 10px;
+    font-size: 25px;
+    padding: 0 15px;
+    background-color: #ffffff;
 }
 .filterSection .selectRegion select{
-    height: 1.5rem;
-    width: 10rem;
+    height: 3rem;
+    width: 14rem;
+    font-size: 25px;
+    border-radius: 10px;
+    padding: 0 15px;
+    background-color: #ffffff;
 }
 
 @media screen and (max-width: 480px) {
@@ -27,10 +36,16 @@ button{
     .filterSection .selectRegion select{
         height: 1.5rem;
         width: 6rem;
+        font-size: 15px;
+    padding: 0 10px;
     }
     .searchBar .searchInput input{
         height: 1.5rem;
         width: 8rem;
+        border-radius: 10px;
+    font-size: 15px;
+    padding: 0 10px;
+    background-color: #ffffff;
     }
 
   }
@@ -53,4 +68,11 @@ button{
 .regionCard img{
     width: 22rem;
     height:12rem;
+}
+
+.countryDetails {
+    text-align: left;
+    padding: 0 2rem;
+
+    
 }

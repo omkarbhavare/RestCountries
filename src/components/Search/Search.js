@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Search.css";
+import { Link } from "react-router-dom";
 
 
-export const Search = () => {
+
+export const Search = (props) => {
   const [countryName, setCountryName] = useState();
   const [region, setRegion] = useState([]);
   const [defaultRegion, setDefaultRegion] = useState();
   const [myRegion, setMyRegion] = useState([]);
-  const [allCountries,setAllCountries]=useState()
-  const [isLoading,setIsLoading]=useState(false)
+  const [isLoading,setIsLoading]=useState(false);
+  const [passDetail,setPassDetail]=useState([])
   
 
 
-  const regionHandler = (x) => {
-    console.log("a");
-    setDefaultRegion(x);
+  const regionHandler = (e) => {
+    if(e!="Select"){
+    console.log(e.target.value.toLowerCase());
+    setDefaultRegion(e.target.value.toLowerCase());
+    }
   };
 
   useEffect(() => {
@@ -23,6 +27,7 @@ export const Search = () => {
     axios.get(`https://restcountries.com/v3.1/region/` + defaultRegion).then(
       (response) => {
         setMyRegion(response.data);
+        console.log(response.data)
         setIsLoading(false)
       },
       [defaultRegion]
@@ -30,6 +35,7 @@ export const Search = () => {
   });
 
   const submitForm = (value) => {
+    
     setCountryName(value);
     console.log(value);
   };
@@ -45,19 +51,10 @@ export const Search = () => {
     );
   });
 
-  const homepage=(x)=>{
-    setAllCountries(x);
-  }
+  
 
-  useEffect(() => {
-    setIsLoading(true)
-    axios.get(`https://restcountries.com/v3.1/`+allCountries).then(
-      (response) => {
-        setMyRegion(response.data);
-        setIsLoading(false)
-      }
-    );
-  },[allCountries]);
+  
+
   useEffect(() => {
     setIsLoading(true)
     axios.get(`https://restcountries.com/v3.1/all`).then(
@@ -67,14 +64,19 @@ export const Search = () => {
       }
     );
   },[]);
-  
+
+  const handlePassDetail=(val)=>{
+    console.log("handlePassDetail22" + val +"scene")
+    setPassDetail(val)
+  }
+  console.log("handlePassDetail" + passDetail)
 
   return (
     
-    <>
+    <div className="mainSection" style={{backgroundColor: !props.dark ? '#2B3945' : '#fafafa',color:!props.dark ? 'white':''}}>
     
       <div className="filterSection">
-      <button onClick={()=>homepage('all')}><i class="fa-solid fa-house"></i></button>
+      
         <div className="container searchBar">
           <form className="searchInput" onSubmit={submitForm}>
             <input
@@ -84,27 +86,28 @@ export const Search = () => {
             />
           </form>
         </div>
-        <div className="selectRegion">
-          <select>
+        <div className="selectRegion" >
+          <select onChange={regionHandler}>
             <option>Select</option>
-            <option onClick={() => regionHandler("europe")}>Europe</option>
-            <option onClick={() => regionHandler("asia")}>Asia</option>
-            <option onClick={() => regionHandler("americas")}>Americas</option>
-            <option onClick={() => regionHandler("oceania")}>Oceania</option>
-            <option onClick={() => regionHandler("africa")}>Africa</option>
+            <option>Europe</option>
+            <option>Asia</option>
+            <option>Americas</option>
+            <option>Africa</option>
+            <option>Oceania</option>
           </select>
         </div>
       </div>
       <div id="region">
         {myRegion.map((val, index) => {
           return (
-            <div className="regionCard" style={{ width: "22rem" }} key={index}>
-              <img src={val.flags.png} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h1 className="card-title">{val.name.common}</h1>
-                <h5>Population:{val.population}</h5>
-                <h5>Region:{val.region}</h5>
-                <h5>Capital:{val.capital}</h5>
+            <div className="regionCard" style={{ width: "22rem" }} key={index} onClick={()=>handlePassDetail(...val)}>
+              <img src={val.flags.png}  alt={val.name.common +' flag'} />
+              <div className="countryDetails">
+                <h1>{val.name.common.length >13 ? val.name.common.substring(0,13)+'...' :val.name.common}</h1>
+                <h3>Population:{val.population}</h3>
+                <h3>Region:{val.region}</h3>
+                <h3>Capital:{val.capital}</h3>
+                <Link to={`/country/${val.name.common}`} >Know More</Link>
                 
               </div>
             </div>
@@ -112,6 +115,6 @@ export const Search = () => {
         })}
         
       </div>
-    </>
+    </div>
   );
 };
